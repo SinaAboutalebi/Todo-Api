@@ -2,8 +2,8 @@
 var express = require("express"),
   router = express.Router(),
   todos = require("../src/schemas/todoSchema");
-
-router.post("/add", async function (req, res) {
+//create
+router.post("/", async function (req, res) {
 
   try {
     const newTodo = new todos({
@@ -18,19 +18,21 @@ router.post("/add", async function (req, res) {
     res.send(500).json({ message: "ERR" });
   }
 });
-
-router.post("/delete", async function (req, res) {
+///delete by Id
+router.delete("/:todoId", async function (req, res) {
   try {
-    await todos.deleteById(req.body.id);
+    const todoId = req.params.todoId
+    await todos.deleteById(todoId);
     res.status(200).json({ message: "OK" });
   } catch (error) {
     res.status(500).json({ message: "ERR" });
   }
 });
-
-router.post("/edit", async function (req, res) {
+// update byId
+router.patch("/:todoId", async function (req, res) {
   try {
-    await todos.findByIdAndUpdate(req.body.id, {
+  const todoId = req.params.todoId
+    await todos.findByIdAndUpdate(todoId, {
       ...(req.body.title && { Title: req.body.title }),
       ...(req.body.desc && { Description: req.body.desc }),
       ...(req.body.completed && { Completed: req.body.completed })
@@ -40,8 +42,8 @@ router.post("/edit", async function (req, res) {
     res.status(500).json({ message: "ERR" });
   }
 });
-
-router.get("/todos", async function (req, res) {
+/// get All todos
+router.get("/", async function (req, res) {
   const data = await todos.find({});
   res.json(data);
 });
