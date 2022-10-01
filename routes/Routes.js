@@ -7,8 +7,8 @@ router.post("/", async function (req, res) {
 
   try {
     const newTodo = new todos({
-      Title: req.body.title,
-      Description: req.body.desc,
+      title: req.body.title,
+      description: req.body.desc,
     });
     let savenewTodo = await newTodo.save();
     console.log("[📓]New Item Saved.", req.body.title);
