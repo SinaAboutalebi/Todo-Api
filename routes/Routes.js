@@ -22,7 +22,7 @@ router.post("/", async function (req, res) {
 router.delete("/:todoId", async function (req, res) {
   try {
     const todoId = req.params.todoId
-    await todos.deleteById(todoId);
+    await todos.deleteOne(todoId);
     res.status(200).json({ message: "OK" });
   } catch (error) {
     res.status(500).json({ message: "ERR" });
