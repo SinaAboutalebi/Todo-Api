@@ -12,7 +12,7 @@ router.post("/", async function (req, res) {
     });
     let savenewTodo = await newTodo.save();
     console.log("[📓]New Item Saved.", req.body.title);
-    res.status(201).json({ message: "OK" });
+    res.status(201).json({ message: "OK", id: savenewTodo._id });
   } catch (error) {
     console.log("[❌]Failed To Save New Item.", error);
     res.send(500).json({ message: "ERR" });
